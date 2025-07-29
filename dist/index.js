@@ -41,6 +41,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const discord_js_2 = require("discord.js");
@@ -53,6 +56,7 @@ const Minesweeper_1 = require("./games/Minesweeper");
 const MemoryMatch_1 = require("./games/MemoryMatch");
 const Trivia_1 = require("./games/Trivia");
 const Connect4_1 = require("./games/Connect4");
+const express_1 = __importDefault(require("express"));
 dotenv.config();
 const client = new discord_js_1.Client({
     intents: [discord_js_1.GatewayIntentBits.Guilds, discord_js_1.GatewayIntentBits.GuildMessages],
@@ -161,3 +165,11 @@ client.on("interactionCreate", (interaction) => __awaiter(void 0, void 0, void 0
     }
 }));
 client.login(process.env.DISCORD_TOKEN);
+const app = (0, express_1.default)();
+app.get("/", (_, res) => {
+    res.send("Bot is running!");
+});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🌐 Web server running on port ${PORT}`);
+});

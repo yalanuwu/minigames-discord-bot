@@ -22,6 +22,8 @@ import { Trivia } from "./games/Trivia";
 import { Game2048 } from "./games/Game2048";
 import { Connect4 } from "./games/Connect4";
 
+import express from "express";
+
 dotenv.config();
 
 const client = new Client({
@@ -142,3 +144,15 @@ client.on("interactionCreate", async (interaction: Interaction) => {
 });
 
 client.login(process.env.DISCORD_TOKEN);
+
+const app = express();
+
+app.get("/", (_, res) => {
+  res.send("Bot is running!");
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🌐 Web server running on port ${PORT}`);
+});
+
